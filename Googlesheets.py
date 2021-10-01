@@ -4,7 +4,6 @@ from pprint import pprint
 from telethon.sync import TelegramClient
 from telethon.tl.types import InputPeerUser
 from telethon.errors.rpcerrorlist import PeerFloodError
-from tabulate import tabulate
 import sys
 import csv
 import random
@@ -35,58 +34,9 @@ with open(input_file, encoding='UTF-8') as f:
         ID = int(row[1])
         user[ID] = int(row[2])
 
-##def print_formatted(data):
-  #  for item, amount s
-#print(list(data))
-#df = pd.read_csv("members.csv")
-#kar_list = list(data[indent=1])
-#close_list = list(data['userID'])
-#perfect_dict = []
-
-#take_lenght = min(len(kar_list), len(close_list))
-#for i in take_lenght:
- #   temp_dict = {}
-  #  temp_dict['Karykar Name'] = kar_list[i]
-   # temp_dict['userID'] = close_list[i]
-    #perfect_dict.append(temp_dict)
-#print(perfect_dict)
-#print(type(data))
-res = []
-for idx, sub in enumerate(data, start = 0):
-    if idx == 0:
-        res.append(list(sub.keys()))
-        res.append(list(sub.values()))
-    else:
-        res.append(list(sub.values()))
-#new = []
-#for r in zip(res):
-  #  new.append(*r)
- #   print(new)
-#print(str(res))
-#print(res)
-#print(tabulate(res))
-#length_list = [len(element) for row in res for element in row]
-#columnn_width = max(length_list)
-#for row in res:
-#    row = "".join(element.ljust(column_width + 2) for element in row)
-new = []
-for k in range(len(res[0])):
-    for v in range(len(res)):
-        new.append(res[v][k])
-        print(res[v][k], end = ' ')
-    print()
-print(new)
-
-
-
 for elem in data:
     UserID =  elem['Telegram User ID']
-    messages = str(res)#str(elem).replace("{","").replace("}", "")
-    send_me = json.dumps(messages, indent = 1)
-    #print(send_me)
-    #messages = json.dumps(elem, indent=1)
-    
-    
+    messages = json.dumps(elem, indent=1)
     receiver = InputPeerUser(UserID, user[UserID])
     print("Sending Message to:", elem['Karyakar Name'])
     client.send_message(receiver, messages)
